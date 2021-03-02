@@ -7,7 +7,6 @@ import com.github.miachm.sods.SpreadSheet;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.io.FileReader;
 import java.net.URISyntaxException;
 
 public class App {
@@ -38,22 +37,21 @@ public class App {
             Range range = walletFrom20112020.getDataRange();
             // System.out.println(range.toString());
 
-            for(int i=1; i<=range.getLastRow(); i++)
+            for(int i=1; i<=274; i++)
             {
-                for(int j=0; j<=range.getLastColumn(); j++)
-                {
-                    try {
+                Object eventDate = range.getCell(i,0).getValue();
+                Object particulars = range.getCell(i,1).getValue();
+                Object amount =range.getCell(i,2).getValue();
 
-                        System.out.print(range.getCell(i,j).getValue().toString()+"\t");
-                    
-                    } catch (NullPointerException ex) {
+                if(particulars == null) {
 
-                        continue;
-                    }
+                    continue;
+                
+                } else {
+
+                    System.out.println((eventDate == null ? "\t" : eventDate.toString()) + "\t" + particulars.toString() + "\t" + amount.toString());
                 }
-                System.out.print("\n");
             }
-
         } catch (IOException | URISyntaxException e){
 
             e.printStackTrace();
