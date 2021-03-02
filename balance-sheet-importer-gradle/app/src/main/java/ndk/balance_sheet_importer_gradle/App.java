@@ -30,7 +30,7 @@ public class App {
             .version(HttpClient.Version.HTTP_2)
             .build();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException{
         
         App app = new App();
         System.out.println("Wallet Transactions");
@@ -40,7 +40,7 @@ public class App {
         app.processSheet("PNB from 20-11-2020",11,305);
     }
 
-    public void processSheet(String sheetName, int accountId, int lastRowNumber) {
+    public void processSheet(String sheetName, int accountId, int lastRowNumber) throws InterruptedException {
 
         try {
             SpreadSheet spread = new SpreadSheet(new File(getClass().getClassLoader().getResource("Balance Sheet.ods").toURI()));
@@ -94,13 +94,13 @@ public class App {
                 //- sign in amount means debit
                 if (amount.toString().contains("-")) {
 
-                    // performHttpPost(currentTransactionDateTime.format(mySqlDateTimeFormatter), userId, particulars.toString(), amount.toString().replace("-", ""), pnbAccountId, unProcessedDebitsId, serverApiUrl);
                     System.out.println("Debit\t"+ currentTransactionDateTime.format(mySqlDateTimeFormatter) + "\t" + particulars.toString() + "\t" + amount.toString().replace("-", ""));
+                    performHttpPost(currentTransactionDateTime.format(mySqlDateTimeFormatter), userId, particulars.toString(), amount.toString().replace("-", ""), pnbAccountId, unProcessedDebitsId, serverApiUrl);
                     
                 } else {
                     
-                    // performHttpPost(currentTransactionDateTime.format(mySqlDateTimeFormatter), userId, particulars.toString(), amount.toString(), unProcessedCreditsId, pnbAccountId, serverApiUrl);
                     System.out.println("Credit\t"+ currentTransactionDateTime.format(mySqlDateTimeFormatter) + "\t" + particulars.toString() + "\t" + amount.toString());
+                    performHttpPost(currentTransactionDateTime.format(mySqlDateTimeFormatter), userId, particulars.toString(), amount.toString(), unProcessedCreditsId, pnbAccountId, serverApiUrl);
                 }
             }
         } catch (IOException | URISyntaxException e){
