@@ -65,7 +65,7 @@ public class App {
 
             LocalDateTime currentTransactionDateTime;
 
-            int userId = 3;
+            int userId = 14;
             int unProcessedCreditsId = 684;
             int pnbAccountId = accountId;
             int unProcessedDebitsId = 683;
@@ -94,14 +94,15 @@ public class App {
                 //- sign in amount means debit
                 if (amount.toString().contains("-")) {
 
-                    System.out.println("Debit\t"+ currentTransactionDateTime.format(mySqlDateTimeFormatter) + "\t" + particulars.toString() + "\t" + amount.toString().replace("-", ""));
+                    System.out.println("Debit\t"+ currentTransactionDateTime.format(mySqlDateTimeFormatter) + "\t" + StandardCharsets.UTF_8.decode(StandardCharsets.UTF_8.encode(particulars.toString())).toString() + "\t" + amount.toString().replace("-", ""));
                     performHttpPost(currentTransactionDateTime.format(mySqlDateTimeFormatter), userId, particulars.toString(), amount.toString().replace("-", ""), pnbAccountId, unProcessedDebitsId, serverApiUrl);
                     
                 } else {
                     
-                    System.out.println("Credit\t"+ currentTransactionDateTime.format(mySqlDateTimeFormatter) + "\t" + particulars.toString() + "\t" + amount.toString());
+                    System.out.println("Credit\t"+ currentTransactionDateTime.format(mySqlDateTimeFormatter) + "\t" + StandardCharsets.UTF_8.decode(StandardCharsets.UTF_8.encode(particulars.toString())).toString() + "\t" + amount.toString());
                     performHttpPost(currentTransactionDateTime.format(mySqlDateTimeFormatter), userId, particulars.toString(), amount.toString(), unProcessedCreditsId, pnbAccountId, serverApiUrl);
                 }
+                // System.out.println(StandardCharsets.UTF_8.decode(StandardCharsets.UTF_8.encode(particulars.toString())).toString());
             }
         } catch (IOException | URISyntaxException e){
 
