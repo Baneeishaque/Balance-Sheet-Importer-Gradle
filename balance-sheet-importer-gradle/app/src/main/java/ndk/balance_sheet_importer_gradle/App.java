@@ -33,15 +33,19 @@ public class App {
     public static void main(String[] args) {
         
         App app = new App();
-        app.processSheet();
+        System.out.println("Wallet Transactions");
+        app.processSheet("Wallet from 20-11-2020",6,275);
+        System.out.println("\n\n");
+        System.out.println("PNB Transactions");
+        app.processSheet("PNB from 20-11-2020",11,305);
     }
 
-    public void processSheet() {
+    public void processSheet(String sheetName, int accountId, int lastRowNumber) {
 
         try {
             SpreadSheet spread = new SpreadSheet(new File(getClass().getClassLoader().getResource("Balance Sheet.ods").toURI()));
             
-            Sheet walletFrom20112020 = spread.getSheet("Wallet from 20-11-2020");
+            Sheet walletFrom20112020 = spread.getSheet(sheetName);
             Range range = walletFrom20112020.getDataRange();
             
             String previousTransactionDate = "";
@@ -63,11 +67,11 @@ public class App {
 
             int userId = 3;
             int unProcessedCreditsId = 684;
-            int pnbAccountId = 6;
+            int pnbAccountId = accountId;
             int unProcessedDebitsId = 683;
             String serverApiUrl = "http://account-ledger-server.herokuapp.com/http_API/insert_Transaction_v2.php";
             
-            for(int i=1; i<=274; i++)
+            for(int i=1; i<lastRowNumber; i++)
             {
                 Object eventDate = range.getCell(i,0).getValue();
                 Object particulars = range.getCell(i,1).getValue();
