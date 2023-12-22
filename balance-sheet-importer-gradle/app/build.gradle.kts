@@ -9,7 +9,7 @@ repositories {
 
 dependencies {
 
-    implementation("com.github.miachm.sods:SODS:1.3.0")
+    implementation("com.github.miachm.sods:SODS:1.6.7")
     
     // Use JUnit Jupiter API for testing.
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
