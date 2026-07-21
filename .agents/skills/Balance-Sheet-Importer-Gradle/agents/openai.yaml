@@ -1,0 +1,6 @@
+interface:
+  display_name: "Balance Sheet Importer Gradle"
+  short_description: "Repo-specific patterns and workflows for Balance-Sheet-Importer-Gradle"
+  default_prompt: "Use the Balance-Sheet-Importer-Gradle repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
